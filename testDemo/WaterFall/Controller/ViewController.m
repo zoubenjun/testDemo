@@ -18,7 +18,7 @@
 #define KSpace 8
 #define kCollectionCellW ((kScrenW - 3 * KSpace) / 2)
 
-@interface ViewController ()<UICollectionViewDataSource, ZBJCollectionViewFlowLayoutDeleaget>
+@interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, ZBJCollectionViewFlowLayoutDeleaget>
 
 @property (nonatomic, strong) NSMutableArray<ZBJHomeModel*>* dataArray;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -91,9 +91,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.dataArray.count > indexPath.row) {
-        
-    }
+//    if (self.dataArray.count > indexPath.row) {
+//        __weak typeof (self) weakSelf = self;
+//        [UIView performWithoutAnimation:^{
+//            __strong typeof (weakSelf) strongSelf = weakSelf;
+//            NSInteger index = indexPath.row;
+//            [strongSelf.dataArray removeObjectAtIndex:index];
+//            [strongSelf.collectionView reloadData];
+////            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+//        }];
+//    }
 }
 
 #pragma mark ————— ZBJCollectionViewFlowLayoutDeleaget —————
@@ -117,6 +124,7 @@
         [_collectionView setShowsVerticalScrollIndicator:NO];
         [_collectionView registerClass:[ZBJHomeCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([ZBJHomeCollectionViewCell class])];
         _collectionView.dataSource = self;
+        _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor orangeColor];
     }
     return _collectionView;

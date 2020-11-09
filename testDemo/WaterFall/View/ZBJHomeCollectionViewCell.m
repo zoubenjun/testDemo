@@ -7,6 +7,7 @@
 //
 
 #import "ZBJHomeCollectionViewCell.h"
+#import "ZBJImageCatch.h"
 
 @interface ZBJHomeCollectionViewCell ()
 
@@ -44,7 +45,13 @@
     if (model.data.DataType == 1 || model.data.DataType == 3) {
         self.mainImageView.hidden = NO;
         self.mainImageView.frame = CGRectMake(0, 0, model.cellW, model.mainImageH);
-        self.mainImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.data.Image.ImageUrl]]];
+        __weak typeof (self) weakSelf = self;
+        [[ZBJImageCatch share] imageWithUrlString:model.data.Image.ImageUrl completion:^(UIImage * _Nonnull image) {
+            __strong typeof (weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                strongSelf.mainImageView.image = image;
+            });
+        }];        
     }
     else {
         self.mainImageView.hidden = YES;
@@ -62,7 +69,7 @@
         self.mainTitleLabel.hidden = YES;
         self.subTitleLabel.hidden = YES;
     }
-    self.headImageView.frame = CGRectMake(16, model.mainImageH+model.mainTitleH+model.subTitleH, 60, 60);
+    self.headImageView.frame = CGRectMake(16, model.mainImageH+model.mainTitleH+model.subTitleH+10, 60, 60);
     self.headImageView.image = [UIImage imageWithData:[[NSData alloc]initWithBase64EncodedString:model.data.HeadImgBase64 options:NSDataBase64DecodingIgnoreUnknownCharacters]];
 }
 
@@ -100,5 +107,11 @@
     }
     return _subTitleLabel;
 }
-
+- (UIButton *)deleteButton {
+    if (!_deleteButton) {
+        _deleteButton = [[UIButton alloc] init];
+        
+    }
+    return _deleteButton;
+}
 @end

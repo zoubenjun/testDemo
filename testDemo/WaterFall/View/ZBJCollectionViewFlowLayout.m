@@ -35,6 +35,8 @@
     
     [super prepareLayout];
     
+    self.contentHeight = 0;
+
     [self.colHArrays removeAllObjects];
     for (NSInteger i = 0; i < self.colCount ; i ++) {
         [self.colHArrays addObject:@(0)];
@@ -54,27 +56,25 @@
     UICollectionViewLayoutAttributes * atts = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
     CGSize size = [self.delegate flowLayout:self heightForItemAtIndexPath:indexPath];
-    
     CGFloat cellW = size.width;
     CGFloat cellH = size.height;
 
     NSInteger column = 0;
-    CGFloat mincolH = [self.colHArrays[0] doubleValue];
+    CGFloat minColH = [self.colHArrays[0] doubleValue];
     
     for (int i = 1; i < self.colCount; i++) {
         
         CGFloat colH = [self.colHArrays[i] doubleValue];
         
-        if (mincolH > colH) {
-            mincolH = colH;
+        if (minColH > colH) {
+            minColH = colH;
             column = i;
         }
     }
     
     CGFloat cellX = self.sectionInset.left + column * (cellW + self.colSpacing);
-    CGFloat cellY = mincolH;
+    CGFloat cellY = minColH;
     if (cellY != self.sectionInset.top) {
-        
         cellY += self.rowSpacing;
     }
     
@@ -82,20 +82,20 @@
     
     self.colHArrays[column] = @(CGRectGetMaxY(atts.frame));
     
-    CGFloat maxcolH = [self.colHArrays[column] doubleValue];
-    if (self.contentHeight < maxcolH) {
-        self.contentHeight = maxcolH;
+    CGFloat maxColH = [self.colHArrays[column] doubleValue];
+    if (self.contentHeight < maxColH) {
+        self.contentHeight = maxColH;
     }
     
     return atts;
 }
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
+- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     return self.attArrays;
 }
 
 - (CGSize)collectionViewContentSize {
-    return CGSizeMake(0, self.contentHeight + self.sectionInset.bottom);
+    return CGSizeMake(0, self.contentHeight + self.sectionInset.bottom + self.sectionInset.top);
 }
 
 #pragma mark ————— lazy load —————

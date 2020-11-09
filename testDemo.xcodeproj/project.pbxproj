@@ -19,6 +19,7 @@
 		1DFED105255907C400D413EC /* ZBJHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFED0FC255907C400D413EC /* ZBJHomeModel.m */; };
 		1DFED106255907C400D413EC /* ZBJCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFED100255907C400D413EC /* ZBJCollectionViewFlowLayout.m */; };
 		1DFED107255907C400D413EC /* ZBJHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFED101255907C400D413EC /* ZBJHomeCollectionViewCell.m */; };
+		1DFED10A2559182300D413EC /* ZBJImageCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFED1092559182300D413EC /* ZBJImageCatch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		1DFED100255907C400D413EC /* ZBJCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBJCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		1DFED101255907C400D413EC /* ZBJHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBJHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		1DFED102255907C400D413EC /* ZBJCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBJCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		1DFED1082559182300D413EC /* ZBJImageCatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBJImageCatch.h; sourceTree = "<group>"; };
+		1DFED1092559182300D413EC /* ZBJImageCatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBJImageCatch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +81,6 @@
 			children = (
 				1DFED0F4255907C300D413EC /* Catagory */,
 				1DFED0F7255907C400D413EC /* WaterFall */,
-				1D9016CD2558D14F00DC028E /* ZhuoZhuo.framework */,
 				1D9016B42558D0FB00DC028E /* AppDelegate.h */,
 				1D9016B52558D0FB00DC028E /* AppDelegate.m */,
 				1D9016B72558D0FB00DC028E /* SceneDelegate.h */,
@@ -86,6 +88,7 @@
 				1D9016BD2558D0FB00DC028E /* Main.storyboard */,
 				1D9016C02558D0FE00DC028E /* Assets.xcassets */,
 				1D9016C22558D0FE00DC028E /* LaunchScreen.storyboard */,
+				1D9016CD2558D14F00DC028E /* ZhuoZhuo.framework */,
 				1D9016C52558D0FE00DC028E /* Info.plist */,
 				1D9016C62558D0FE00DC028E /* main.m */,
 			);
@@ -107,6 +110,8 @@
 				1DFED0F8255907C400D413EC /* Controller */,
 				1DFED0FB255907C400D413EC /* Model */,
 				1DFED0FE255907C400D413EC /* View */,
+				1DFED1082559182300D413EC /* ZBJImageCatch.h */,
+				1DFED1092559182300D413EC /* ZBJImageCatch.m */,
 			);
 			path = WaterFall;
 			sourceTree = "<group>";
@@ -114,8 +119,8 @@
 		1DFED0F8255907C400D413EC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1DFED0F9255907C400D413EC /* ViewController.m */,
 				1DFED0FA255907C400D413EC /* ViewController.h */,
+				1DFED0F9255907C400D413EC /* ViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -123,8 +128,8 @@
 		1DFED0FB255907C400D413EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1DFED0FC255907C400D413EC /* ZBJHomeModel.m */,
 				1DFED0FD255907C400D413EC /* ZBJHomeModel.h */,
+				1DFED0FC255907C400D413EC /* ZBJHomeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -133,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				1DFED0FF255907C400D413EC /* ZBJHomeCollectionViewCell.h */,
-				1DFED100255907C400D413EC /* ZBJCollectionViewFlowLayout.m */,
 				1DFED101255907C400D413EC /* ZBJHomeCollectionViewCell.m */,
 				1DFED102255907C400D413EC /* ZBJCollectionViewFlowLayout.h */,
+				1DFED100255907C400D413EC /* ZBJCollectionViewFlowLayout.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			files = (
 				1DFED104255907C400D413EC /* ViewController.m in Sources */,
 				1D9016B62558D0FB00DC028E /* AppDelegate.m in Sources */,
+				1DFED10A2559182300D413EC /* ZBJImageCatch.m in Sources */,
 				1DFED106255907C400D413EC /* ZBJCollectionViewFlowLayout.m in Sources */,
 				1DFED103255907C400D413EC /* NSString+Utils.m in Sources */,
 				1D9016C72558D0FE00DC028E /* main.m in Sources */,
@@ -363,6 +369,7 @@
 					"$(PROJECT_DIR)/testDemo",
 				);
 				INFOPLIST_FILE = testDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,6 +390,7 @@
 					"$(PROJECT_DIR)/testDemo",
 				);
 				INFOPLIST_FILE = testDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

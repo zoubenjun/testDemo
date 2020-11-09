@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
                         font:(UIFont *)font
               lineBreakModel:(NSLineBreakMode)mode;
 
+- (NSString *)md5;
+
 @end
 
 NS_ASSUME_NONNULL_END
