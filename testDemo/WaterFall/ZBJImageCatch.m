@@ -11,7 +11,8 @@
 
 @interface ZBJImageCatch ()
 
-@property(nonatomic, strong) NSMutableDictionary *catchDict;
+//@property(nonatomic, strong) NSMutableDictionary *catchDict;
+@property(nonatomic, strong) NSCache *imageCache;
 
 @end
 
@@ -22,7 +23,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         obj = [[self alloc] init];
-        obj.catchDict = [NSMutableDictionary dictionary];
+//        obj.catchDict = [NSMutableDictionary dictionary];
+        [obj imageCache];
     });
     return obj;
 }
@@ -34,37 +36,38 @@
     }
     
     NSString *md5String = [urlString md5];
-    if ([self.catchDict objectForKey:md5String]) {
-        completion([self.catchDict objectForKey:md5String]);
+    if ([self.imageCache objectForKey:md5String]) {
+        completion([self.imageCache objectForKey:md5String]);
     }
     else {
-        NSString *directoryPath = [self zbj_cachePath];
-        NSString *path = [NSString stringWithFormat:@"%@/%@",
-                          directoryPath,
-                          md5String];
-        __block UIImage *image = [UIImage imageWithContentsOfFile:path];
-        if (image) {
-            [self.catchDict setObject:image forKey:md5String];
-            completion([UIImage imageWithContentsOfFile:path]);
-        }
-        else {
-            __weak typeof (self) weakSelf = self;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                __strong typeof (weakSelf) strongSelf = weakSelf;
+        __weak typeof (self) weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __strong typeof (weakSelf) strongSelf = weakSelf;
+            NSString *directoryPath = [self zbj_cachePath];
+            NSString *path = [NSString stringWithFormat:@"%@/%@",
+                              directoryPath,
+                              md5String];
+            UIImage *image = [UIImage imageWithContentsOfFile:path];
+            if (image) {
+                [self.imageCache setObject:image forKey:md5String];
+                completion([UIImage imageWithContentsOfFile:path]);
+            }
+            else {
                 image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
                 if (image) {
-                    [strongSelf.catchDict setObject:image forKey:md5String];
+                    [strongSelf.imageCache setObject:image forKey:md5String];
                     [strongSelf saveImageWithUrlString:urlString image:image];
                     completion(image);
                 }
-            });
-        }
+            }
+        });
     }
 }
 
 - (void)clearImageCatch {
     
-    [self.catchDict removeAllObjects];
+//    [self.catchDict removeAllObjects];
+    [self.imageCache removeAllObjects];
     
     NSString *directoryPath = [self zbj_cachePath];
     
@@ -124,4 +127,11 @@
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/ImageCatch"];
 }
 
+- (NSCache *)imageCache {
+    if (!_imageCache) {
+        _imageCache = [[NSCache alloc] init];
+        _imageCache.name = @"imageCache";
+    }
+    return _imageCache;
+}
 @end
